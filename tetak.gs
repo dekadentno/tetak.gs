@@ -51,9 +51,9 @@ function sendToSlack(message) {
 }
 
 function sendEmailOrders(html) {
-  to = "order@example.com"
-  cc = "email@example.com"
-  replyTo = "reply@example.com"
+  var to = "order@example.com"
+  var cc = "email@example.com"
+  var replyTo = "reply@example.com"
 
   var today = new Date();
   var dd = String(today.getDate()).padStart(2, '0');
