@@ -49,3 +49,44 @@ function sendToSlack(message) {
   
   return UrlFetchApp.fetch(url, options);
 }
+
+function sendEmailOrders(html) {
+  to = "order@example.com"
+  cc = "email@example.com"
+  replyTo = "reply@example.com"
+
+  var today = new Date();
+  var dd = String(today.getDate()).padStart(2, '0');
+  var mm = String(today.getMonth() + 1).padStart(2, '0');
+  var yyyy = today.getFullYear();
+
+  today = ` ${dd}.${mm}.${yyyy}`
+  subject = `Food order - Company (${today})`
+
+  MailApp.sendEmail({to: to, cc: cc, replyTo: replyTo, subject: subject, htmlBody: html})
+}
+
+function getFoodOrders() {
+
+  var sheet = SpreadsheetApp.getActiveSheet();
+  var startRow = 3; // First row of data to process
+  var numRows = 28; // Number of rows to process
+  var dataRange = sheet.getRange(startRow, 17, numRows, 1);
+  var data = dataRange.getValues();
+  var food = []
+
+  for (var i in data) {
+    if (data[i][0].length > 0)
+      food.push(data[i][0])
+  }
+
+  return food
+
+}
+
+function processOrdersAndSendEmails() {
+  foodList = getFoodOrders()
+  if (foodList.length > 0) {
+    sendEmailOrders(OrderFoodTemplate(foodList))
+  }
+}
