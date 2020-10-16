@@ -51,9 +51,9 @@ function sendToSlack(message) {
 }
 
 function sendEmailOrders(html) {
-  to = "order@example.com"
-  cc = "email@example.com"
-  replyTo = "reply@example.com"
+  var to = "order@example.com"
+  var cc = "email@example.com"
+  var replyTo = "reply@example.com"
 
   var today = new Date();
   var dd = String(today.getDate()).padStart(2, '0');
@@ -64,6 +64,10 @@ function sendEmailOrders(html) {
   subject = `Food order - Company (${today})`
 
   MailApp.sendEmail({to: to, cc: cc, replyTo: replyTo, subject: subject, htmlBody: html})
+}
+
+function OrderFoodTemplate(list) {
+return `Pozdrav,,<br>za ovaj tjedan imamo narudžbu:<br> ${list.join("<br>")} &nbsp;<br><br><br>Puno hvala<br><br>`
 }
 
 function getFoodOrders() {
