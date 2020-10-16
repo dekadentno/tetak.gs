@@ -66,6 +66,10 @@ function sendEmailOrders(html) {
   MailApp.sendEmail({to: to, cc: cc, replyTo: replyTo, subject: subject, htmlBody: html})
 }
 
+function OrderFoodTemplate(list) {
+return `Pozdrav,,<br>za ovaj tjedan imamo narudžbu:<br> ${list.join("<br>")} &nbsp;<br><br><br>Puno hvala<br><br>`
+}
+
 function getFoodOrders() {
 
   var sheet = SpreadsheetApp.getActiveSheet();
